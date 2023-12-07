@@ -8,9 +8,9 @@ export default async function Home() {
   const id = user?.id
   let barangays: string[] = []
 
-  // Berl
-  if (id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
-    barangays.push('50th', 'Aguada', 'tabid', 'manaka')
+  // Kons John && Berl
+  if (id === 'user_2ZD0PFrBO6XZQgG556uPRcTiUj4' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
+    barangays.push('Carmen (Misamis Annex)', 'Baybay Triunfo', 'Maningcol', 'Catadman-Manabay')
   }
 
   return (
