@@ -12,6 +12,10 @@ export default async function Home() {
   if (id === 'user_2ZD0PFrBO6XZQgG556uPRcTiUj4' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
     barangays.push('Carmen (Misamis Annex)', 'Baybay Triunfo', 'Maningcol', 'Catadman-Manabay')
   }
+  // Kan Canlas && Berl
+  if (id === 'user_2ZD0ywdhBjM9brDROIiJyl4ARg3' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
+    barangays.push('Tabid', 'Manaka', 'Diguan')
+  }
 
   return (
     <div className="max-w-5xl px-4 py-10 mx-auto">
