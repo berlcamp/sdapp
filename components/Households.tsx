@@ -304,12 +304,12 @@ function Households({ barangays}: { barangays: string[]}) {
                 type='text'/>
               <button type='button' onClick={e => setFilterName('')} className='bg-gray-600 hover:bg-gray-700 text-xs px-1'>Clear</button>
             </div>
-            <div className='flex justify-end flex-1'>
+            {/* <div className='flex justify-end flex-1'>
               <button
                 type='button'
                 onClick={handleCheckboxChange}
                 className='bg-gray-600 hover:bg-gray-700 text-xs text-white font-bold px-2 py-2'>{ isChecked ? 'View All' : 'View Unsettled' }</button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
