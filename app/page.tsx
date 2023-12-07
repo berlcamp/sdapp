@@ -12,9 +12,13 @@ export default async function Home() {
   if (id === 'user_2ZD0PFrBO6XZQgG556uPRcTiUj4' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
     barangays.push('Carmen (Misamis Annex)', 'Baybay Triunfo', 'Maningcol', 'Catadman-Manabay')
   }
-  // Kan Canlas && Berl
+  // Kap Canlas && Berl
   if (id === 'user_2ZD0ywdhBjM9brDROIiJyl4ARg3' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
     barangays.push('Tabid', 'Manaka', 'Diguan')
+  }
+  // Kons Kat2x && Berl
+  if (id === 'user_2ZD3d1Uqtyif7B28biTtCEy5xsw' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
+    barangays.push('50TH District', 'Baybay San Roque', 'Baybay Santa Cruz', 'Aguada')
   }
 
   return (
