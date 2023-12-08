@@ -13,7 +13,7 @@ export default async function Home() {
     barangays.push('Carmen (Misamis Annex)', 'Baybay Triunfo', 'Maningcol', 'Catadman-Manabay')
   }
   // Kap Canlas && Berl
-  if (id === 'user_2ZD0ywdhBjM9brDROIiJyl4ARg3' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
+  if (id === 'user_2ZD0ywdhBjM9brDROIiJyl4ARg3' || id === 'user_2ZF10JPetBla9IZkTxuUUKEoqS0' || id === 'user_2ZDJpzC640xTT9Ks7hjS5XKaown' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
     barangays.push('Tabid', 'Manaka', 'Diguan')
   }
   // Kons Kat2x && Berl
