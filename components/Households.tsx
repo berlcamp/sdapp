@@ -136,6 +136,14 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.household_id === id) {
+                  return { ...household, household_delete: 'yes'}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'deleteHouseholdDuplicate') {
               const d = data.map(household => {
@@ -145,6 +153,14 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.duplicate_household_id === id) {
+                  return { ...household, duplicate_household_delete: 'yes'}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'undoDeleteHousehold') {
               const d = data.map(household => {
@@ -154,6 +170,14 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.household_id === id) {
+                  return { ...household, household_delete: ''}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'undoDeleteHouseholdDuplicate') {
               const d = data.map(household => {
@@ -163,6 +187,14 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.duplicate_household_id === id) {
+                  return { ...household, duplicate_household_delete: ''}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'deleteMember') {
               const d = data.map(household => {
@@ -178,6 +210,20 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.household_id === id) {
+                  const m = household.members.map(member => {
+                    if (member.id === memberId) {
+                      return { ...member, member_delete: 'yes'}
+                    }
+                    return member
+                  })
+                  return { ...household, members: m}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'deleteMemberDuplicate') {
               const d = data.map(household => {
@@ -193,6 +239,20 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.duplicate_household_id === id) {
+                  const m = household.duplicate_members.map(member => {
+                    if (member.id === memberId) {
+                      return { ...member, member_delete: 'yes'}
+                    }
+                    return member
+                  })
+                  return { ...household, duplicate_members: m}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'undoDeleteMember') {
               const d = data.map(household => {
@@ -208,6 +268,20 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.household_id === id) {
+                  const m = household.members.map(member => {
+                    if (member.id === memberId) {
+                      return { ...member, member_delete: ''}
+                    }
+                    return member
+                  })
+                  return { ...household, members: m}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
             if (requestType === 'undoDeleteMemberDuplicate') {
               const d = data.map(household => {
@@ -223,6 +297,20 @@ function Households({ barangays}: { barangays: string[]}) {
                 return household
               })
               setData(d)
+
+              const origD = originalData.map(household => {
+                if (household.duplicate_household_id === id) {
+                  const m = household.duplicate_members.map(member => {
+                    if (member.id === memberId) {
+                      return { ...member, member_delete: ''}
+                    }
+                    return member
+                  })
+                  return { ...household, duplicate_members: m}
+                }
+                return household
+              })
+              setOriginalData(origD)
             }
           }
         })
@@ -279,16 +367,16 @@ function Households({ barangays}: { barangays: string[]}) {
   return (
     <div>
       <div className="text-center text-2xl text-gray-300">Households with Duplicates</div>
+      {
+        data.length > 0 && <div className='text-center text-xs text-gray-300'>{data.length} total results.</div>
+      }
       <div className="text-gray-300 text-sm mt-6 mb-2">
-        {/* {
-          data.length > 0 && <div className='text-center mb-2 text-sm'>{data.length} total results.</div>
-        } */}
         <div>
           <div className="w-full flex justify-between space-x-2">
             <div className='flex space-x-1'>
               <select
                 onChange={e => setFilterBarangay(e.target.value)}
-                className="border text-gray-600 outline-none">
+                className="border text-gray-600 outline-none w-32">
                   <option>Choose Barangay</option>
                 {
                   barangays.map((barangay: string, index) => <option key={index}>{barangay}</option>)
@@ -298,18 +386,18 @@ function Households({ barangays}: { barangays: string[]}) {
             <div className='flex space-x-1'>
               <input
                 placeholder='Search Name'
-                className='outline-none text-black px-1 py-px'
+                className='outline-none text-black px-1 py-px w-32'
                 onChange={e => setFilterName(e.target.value)}
                 value={filterName}
                 type='text'/>
               <button type='button' onClick={e => setFilterName('')} className='bg-gray-600 hover:bg-gray-700 text-xs px-1'>Clear</button>
             </div>
-            {/* <div className='flex justify-end flex-1'>
+            <div className='flex justify-end flex-1'>
               <button
                 type='button'
                 onClick={handleCheckboxChange}
-                className='bg-gray-600 hover:bg-gray-700 text-xs text-white font-bold px-2 py-2'>{ isChecked ? 'View All' : 'View Unsettled' }</button>
-            </div> */}
+                className={`${ isChecked ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'} text-xs text-white font-bold px-2 py-2`}>{ isChecked ? 'All' : 'Unsettled' }</button>
+            </div>
           </div>
         </div>
       </div>
