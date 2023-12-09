@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { FaArrowsAltH, FaTrashAlt } from "react-icons/fa"
-import { IoIosUndo } from "react-icons/io"
+import { FaLocationArrow } from "react-icons/fa"
 import Loading from '@/components/Loading'
 import axios from 'axios'
 import toast from 'react-hot-toast'
@@ -200,15 +199,16 @@ function List({ barangays}: { barangays: string[]}) {
                     <tr key={index} className='border-b border-gray-300'>
                       <td className='text-xs px-1 py-2'>{head.fullname}</td>
                       <td className='py-2'>
-                        <div className='flex space-x-1'>
+                        <div className='flex items-center space-x-1'>
+                          <span className='text-xs'>SP-</span>
                           <input
-                            className='text-xs outline-none px-1 py-px w-16'
-                            placeholder='SP-ID'
+                            className='text-xs outline-none px-1 py-1 w-10'
+                            placeholder='ID'
                             onChange={(e) => handleInputChange(index, e.target.value)}
                             type='text'/>
                           <button
                             onClick={() => handleSave(index, head.id, head.sp_id)}
-                            className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-px rounded-sm'>Submit</button>
+                            className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-1 rounded-sm'><FaLocationArrow /></button>
                         </div>
                       </td>
                       <td className='text-[10px] px-1 py-2'>
