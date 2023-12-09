@@ -10,6 +10,7 @@ interface HouseholdHeadType {
   fullname: string
   sp_id: string
   sp_fullname: string
+  error_message?: string
 }
 
 function List({ barangays}: { barangays: string[]}) {
@@ -97,10 +98,12 @@ function List({ barangays}: { barangays: string[]}) {
     try {
       await axios.put(`${apiUrl}/households/headspid`, params)
         .then((response: any) => {
+          const errorMsg = response.data.error_message
+
           if (response.data.sp_fullname !== 'SP Not Found') {
             const d = originalData.map((item) => {
               if (item.id === id) {
-                return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
+                return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname, error_message: errorMsg }
               }
               return item
             })
@@ -108,13 +111,28 @@ function List({ barangays}: { barangays: string[]}) {
 
             const d2 = data.map((item) => {
               if (item.id === id) {
-                return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
+                return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname, error_message: errorMsg }
               }
               return item
             })
             setData(d2)
             toast.success('Successfully saved')
           } else {
+            const d = originalData.map((item) => {
+              if (item.id === id) {
+                return { ...item, error_message: errorMsg }
+              }
+              return item
+            })
+            setOriginalData(d)
+
+            const d2 = data.map((item) => {
+              if (item.id === id) {
+                return { ...item, error_message: errorMsg }
+              }
+              return item
+            })
+            setData(d2)
             toast.error('SP Not Found')
           }
         })
@@ -199,17 +217,20 @@ function List({ barangays}: { barangays: string[]}) {
                     <tr key={index} className='border-b border-gray-300'>
                       <td className='text-xs px-1 py-2'>{head.fullname}</td>
                       <td className='py-2'>
-                        <div className='flex items-center space-x-1'>
-                          <span className='text-xs'>SP-</span>
-                          <input
-                            className='text-xs outline-none px-1 py-1 w-10'
-                            placeholder='ID'
-                            onChange={(e) => handleInputChange(index, e.target.value)}
-                            type='text'/>
-                          <button
-                            onClick={() => handleSave(index, head.id, head.sp_id)}
-                            className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-1 rounded-sm'><FaLocationArrow /></button>
+                        <div>
+                          <div className='flex items-center space-x-1'>
+                            <span className='text-xs'>SP-</span>
+                            <input
+                              className='text-xs outline-none px-1 py-1 w-10'
+                              placeholder='ID'
+                              onChange={(e) => handleInputChange(index, e.target.value)}
+                              type='text'/>
+                            <button
+                              onClick={() => handleSave(index, head.id, head.sp_id)}
+                              className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-1 rounded-sm'><FaLocationArrow /></button>
+                          </div>
                         </div>
+                        <div className='text-[10px] font-bold text-red-500'>{head.error_message}</div>
                       </td>
                       <td className='text-[10px] px-1 py-2'>
                         <div>{head.sp_fullname}</div>
