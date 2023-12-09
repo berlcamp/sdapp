@@ -4,6 +4,7 @@ import { FaArrowsAltH, FaTrashAlt } from "react-icons/fa"
 import { IoIosUndo } from "react-icons/io"
 import Loading from './Loading'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 interface MembersType {
   id: string
@@ -86,6 +87,7 @@ function Households({ barangays}: { barangays: string[]}) {
         household.duplicate_members.forEach((member: MembersType) => {
           fullName = `${fullName} ${member.lastname} ${member.firstname} ${member.middlename}`.toLowerCase();
         })
+        fullName = fullName.toLowerCase()
         return searchWords.every(word => fullName.includes(word));
       })
     }
@@ -312,6 +314,9 @@ function Households({ barangays}: { barangays: string[]}) {
               })
               setOriginalData(origD)
             }
+            toast.success('Successfully saved')
+          } else {
+            toast.error('Something went wrong, please refresh the page.')
           }
         })
     } catch (error) {

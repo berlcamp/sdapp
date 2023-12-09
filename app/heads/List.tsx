@@ -4,15 +4,19 @@ import { FaArrowsAltH, FaTrashAlt } from "react-icons/fa"
 import { IoIosUndo } from "react-icons/io"
 import Loading from '@/components/Loading'
 import axios from 'axios'
+import toast from 'react-hot-toast'
 
 interface HouseholdHeadType {
   id: string
   fullname: string
+  sp_id: string
+  sp_fullname: string
 }
 
 function List({ barangays}: { barangays: string[]}) {
   const [loading, setLoading] = useState(false)
   const [isChecked, setIsChecked] = useState(false)
+  const [inputValues, setInputValues] = useState<string[] | []>([])
   const [filterBarangay, setFilterBarangay] = useState('')
   const [filterName, setFilterName] = useState('')
   const [data, setData] = useState<HouseholdHeadType[] | []>([])
@@ -29,7 +33,7 @@ function List({ barangays}: { barangays: string[]}) {
     }
 
     try {
-      await axios.get(`${apiUrl}/households/nospheads`, { params })
+      await axios.get(`${apiUrl}/households/headssp`, { params })
         .then(response => {
           const d: HouseholdHeadType[] = response.data
 
@@ -49,7 +53,8 @@ function List({ barangays}: { barangays: string[]}) {
       const searchWords = name.toLowerCase().split(' ');
 
       return originalData.filter((head: HouseholdHeadType) => {
-        return searchWords.every(word => head.fullname.includes(word));
+        const headname = head.fullname.toLowerCase()
+        return searchWords.every(word => headname.includes(word));
       })
     }
 
@@ -58,9 +63,31 @@ function List({ barangays}: { barangays: string[]}) {
     setData(searchResult)
   }
 
-  const handleUpdate = async (id: string, spId: string) => {
+  const handleFilterWithoutSP = () => {
+    if (isChecked) {
+      setFilterName('')
+
+      const d = originalData.filter((item) => item.sp_id === null)
+      setData(d)
+    } else {
+      fetchData()
+    }
+  }
+
+  const handleInputChange = (index: number, value: string) => {
+    const values = [...inputValues]
+    values[index] = value
+    setInputValues(values)
+  }
+
+  const handleSave = async (index: number, id: string, originalSpId: string) => {
+    // Access the value of the input field associated with the clicked button
+    const spId = inputValues[index]
+
+    // Perform any desired action with the value
     let param: any = {
-      spId
+      sp_id: spId,
+      original_sp_id: originalSpId,
     }
 
     const params = {
@@ -69,20 +96,32 @@ function List({ barangays}: { barangays: string[]}) {
     }
 
     try {
-      // await axios.put(`${apiUrl}/households/updateSp`, params)
-      //   .then(response => {
+      await axios.put(`${apiUrl}/households/headspid`, params)
+        .then((response: any) => {
+          const d = originalData.map((item) => {
+            if (item.id === id) {
+              return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
+            }
+            return item
+          })
+          setOriginalData(d)
 
-      //   })
+          const d2 = data.map((item) => {
+            if (item.id === id) {
+              return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
+            }
+            return item
+          })
+          setData(d2)
+
+          if (response.data.sp_fullname === 'SP Not Found') {
+            toast.error('SP Not Found')
+          } else {
+            toast.success('Successfully saved')
+          }
+        })
     } catch (error) {
       console.error('error', error)
-    }
-  }
-
-  const handleFilterUnsettled = () => {
-    if (isChecked) {
-      setFilterName('')
-    } else {
-      fetchData()
     }
   }
 
@@ -101,13 +140,13 @@ function List({ barangays}: { barangays: string[]}) {
   }, [filterName])
 
   useEffect(() => {
-    handleFilterUnsettled()
+    handleFilterWithoutSP()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isChecked])
 
   return (
     <div>
-      <div className="text-center text-2xl text-gray-300">Households Head without SP</div>
+      <div className="text-center text-2xl text-gray-300">Households Head SP</div>
       {
         data.length > 0 && <div className='text-center text-xs text-gray-300'>{data.length} total results.</div>
       }
@@ -133,12 +172,12 @@ function List({ barangays}: { barangays: string[]}) {
                 type='text'/>
               <button type='button' onClick={e => setFilterName('')} className='bg-gray-600 hover:bg-gray-700 text-xs px-1'>Clear</button>
             </div>
-            {/* <div className='flex justify-end flex-1'>
+            <div className='flex justify-end flex-1'>
               <button
                 type='button'
                 onClick={handleCheckboxChange}
-                className={`${ isChecked ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'} text-xs text-white font-bold px-2 py-2`}>{ isChecked ? 'All' : 'Unsettled' }</button>
-            </div> */}
+                className={`${ isChecked ? 'bg-green-600 hover:bg-green-700' : 'bg-blue-600 hover:bg-blue-700'} text-xs text-white font-bold px-2 py-2`}>{ isChecked ? 'View All' : 'View w/Out SP' }</button>
+            </div>
           </div>
         </div>
       </div>
@@ -146,15 +185,41 @@ function List({ barangays}: { barangays: string[]}) {
       { (filterBarangay !== '' && filterBarangay !== 'Choose Barangay' && data.length === 0) && <div className='bg-gray-800 text-gray-400 text-center border border-dashed border-gray-400 py-10'>No results found for this barangay.</div> }
       { loading && <Loading/> }
       {
-        !loading &&
-          <div className='w-full flex flex-col gap-8'>
-            {
-              data.map((head: HouseholdHeadType, index) => (
-                <div key={index} className=''>
-
-                </div>
-              ))
-            }
+        (!loading && data.length > 0) &&
+          <div className='w-full flex flex-col border bg-gray-200 px-4 py-2'>
+            <table>
+              <thead>
+                <tr className='border-b border-gray-300'>
+                  <th className='text-xs px-1 text-left whitespace-nowrap'>SP ID</th>
+                  <th className='text-xs px-1 text-left w-full md:w-72'>Head of Household</th>
+                  <th className='text-xs px-1 text-left'>New SP-ID</th>
+                  <th className='text-xs px-1 text-left'>SP Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  data.map((head: HouseholdHeadType, index) => (
+                    <tr key={index} className='border-b border-gray-300'>
+                      <td className='text-xs px-1 py-2 whitespace-nowrap'>{head.sp_id !== null ? `SP-${head.sp_id}` : ''}</td>
+                      <td className='text-xs px-1 py-2'>{head.fullname}</td>
+                      <td className='py-2'>
+                        <div className='flex space-x-1'>
+                          <input
+                            className='text-xs outline-none px-1 py-px w-20'
+                            placeholder='SP-ID'
+                            onChange={(e) => handleInputChange(index, e.target.value)}
+                            type='text'/>
+                          <button
+                            onClick={() => handleSave(index, head.id, head.sp_id)}
+                            className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-px rounded-sm'>Submit</button>
+                        </div>
+                      </td>
+                      <td className='text-xs px-1 py-2'>{head.sp_fullname}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
           </div>
       }
     </div>

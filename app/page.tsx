@@ -1,5 +1,4 @@
 import Households from "@/components/Households"
-import { UserButton } from "@clerk/nextjs"
 import { currentUser } from '@clerk/nextjs'
 
 export default async function Home() {
@@ -52,9 +51,8 @@ export default async function Home() {
   }
 
   return (
-    <div className="max-w-5xl px-4 py-10 mx-auto">
-      <UserButton afterSignOutUrl="/"/>
-      <div className='sm:fixed sm:top-28 sm:left-5 sm:mt-0 mt-8 mb-4'>
+    <div className="px-4 mx-auto">
+      <div className='sm:fixed sm:top-32 sm:left-5 mt-2 sm:mt-0 mb-4'>
         <div className="text-white">Legend:</div>
         <div className="text-gray-300 text-xs mt-2 flex flex-col items-start gap-3">
           <div>

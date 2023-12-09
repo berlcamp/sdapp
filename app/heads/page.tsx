@@ -1,5 +1,3 @@
-import Households from "@/components/Households"
-import { UserButton } from "@clerk/nextjs"
 import { currentUser } from '@clerk/nextjs'
 import List from "./List"
 
@@ -53,9 +51,8 @@ export default async function Home() {
   }
 
   return (
-    <div className="max-w-5xl px-4 py-10 mx-auto">
-      <UserButton afterSignOutUrl="/"/>
-      <div className="ml-0 sm:ml-32">
+    <div className="px-4 mx-auto">
+      <div>
         <List barangays={barangays}/>
       </div>
     </div>
