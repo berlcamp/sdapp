@@ -189,8 +189,7 @@ function List({ barangays}: { barangays: string[]}) {
             <table>
               <thead>
                 <tr className='border-b border-gray-300'>
-                  <th className='text-xs px-1 text-left whitespace-nowrap'>SP ID</th>
-                  <th className='text-xs px-1 text-left w-full md:w-72'>Head of Household</th>
+                  <th className='text-xs px-1 text-left'>Head of Household</th>
                   <th className='text-xs px-1 text-left'>New SP-ID</th>
                   <th className='text-xs px-1 text-left'>SP Name</th>
                 </tr>
@@ -199,12 +198,11 @@ function List({ barangays}: { barangays: string[]}) {
                 {
                   data.map((head: HouseholdHeadType, index) => (
                     <tr key={index} className='border-b border-gray-300'>
-                      <td className='text-xs px-1 py-2 whitespace-nowrap'>{head.sp_id !== null ? `SP-${head.sp_id}` : ''}</td>
                       <td className='text-xs px-1 py-2'>{head.fullname}</td>
                       <td className='py-2'>
                         <div className='flex space-x-1'>
                           <input
-                            className='text-xs outline-none px-1 py-px w-20'
+                            className='text-xs outline-none px-1 py-px w-16'
                             placeholder='SP-ID'
                             onChange={(e) => handleInputChange(index, e.target.value)}
                             type='text'/>
@@ -213,7 +211,10 @@ function List({ barangays}: { barangays: string[]}) {
                             className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-px rounded-sm'>Submit</button>
                         </div>
                       </td>
-                      <td className='text-xs px-1 py-2'>{head.sp_fullname}</td>
+                      <td className='text-[10px] px-1 py-2'>
+                        <div>{head.sp_fullname}</div>
+                        <div className='text-orange-600'>{head.sp_id !== null ? `[SP-${head.sp_id}]` : ''}</div>
+                      </td>
                     </tr>
                   ))
                 }
