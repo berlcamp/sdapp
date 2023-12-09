@@ -98,26 +98,25 @@ function List({ barangays}: { barangays: string[]}) {
     try {
       await axios.put(`${apiUrl}/households/headspid`, params)
         .then((response: any) => {
-          const d = originalData.map((item) => {
-            if (item.id === id) {
-              return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
-            }
-            return item
-          })
-          setOriginalData(d)
+          if (response.data.sp_fullname !== 'SP Not Found') {
+            const d = originalData.map((item) => {
+              if (item.id === id) {
+                return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
+              }
+              return item
+            })
+            setOriginalData(d)
 
-          const d2 = data.map((item) => {
-            if (item.id === id) {
-              return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
-            }
-            return item
-          })
-          setData(d2)
-
-          if (response.data.sp_fullname === 'SP Not Found') {
-            toast.error('SP Not Found')
-          } else {
+            const d2 = data.map((item) => {
+              if (item.id === id) {
+                return { ...item, sp_id: response.data.sp_id, sp_fullname: response.data.sp_fullname }
+              }
+              return item
+            })
+            setData(d2)
             toast.success('Successfully saved')
+          } else {
+            toast.error('SP Not Found')
           }
         })
     } catch (error) {
