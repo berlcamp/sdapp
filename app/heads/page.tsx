@@ -42,7 +42,7 @@ export default async function Home() {
 
   // Kons Saquin && Berl
   if (id === 'user_2ZD612tDgYtKgSwGWZ56A6z2A8E' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
-    barangays.push('Gango', 'Dona Consuelo', 'Bacolod')
+    barangays.push('Gango', 'Dona Consuelo', 'Bacolod', 'San Antonio')
   }
 
   // Kap JCM && Berl
