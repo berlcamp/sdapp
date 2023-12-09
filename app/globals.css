@@ -3,6 +3,5 @@
 @tailwind utilities;
 
 .toast-top {
-  @apply fixed top-4 left-1/2 transform -translate-x-1/2;
-  /* Adjust spacing and positioning as needed */
+  @apply fixed top-4 left-1/2 transform -translate-x-1/2
 }

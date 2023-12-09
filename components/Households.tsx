@@ -314,9 +314,9 @@ function Households({ barangays}: { barangays: string[]}) {
               })
               setOriginalData(origD)
             }
-            toast.success('Successfully saved', { className: 'toast-top' })
+            toast.success('Successfully saved')
           } else {
-            toast.error('Something went wrong, please refresh the page.', { className: 'toast-top' })
+            toast.error('Something went wrong, please refresh the page.')
           }
         })
     } catch (error) {

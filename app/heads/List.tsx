@@ -114,9 +114,9 @@ function List({ barangays}: { barangays: string[]}) {
               return item
             })
             setData(d2)
-            toast.success('Successfully saved', { className: 'toast-top' })
+            toast.success('Successfully saved')
           } else {
-            toast.error('SP Not Found', { className: 'toast-top' })
+            toast.error('SP Not Found')
           }
         })
     } catch (error) {
