@@ -10,6 +10,7 @@ interface HouseholdHeadType {
   fullname: string
   sp_id: string
   sp_fullname: string
+  sp_barangay?: string
   error_message?: string
 }
 
@@ -235,6 +236,7 @@ function List({ barangays}: { barangays: string[]}) {
                       <td className='text-[10px] px-1 py-2'>
                         <div>{head.sp_fullname}</div>
                         <div className='text-orange-600'>{head.sp_id !== null ? `[SP-${head.sp_id}]` : ''}</div>
+                        <div className='text-green-600 font-medium'>{head.sp_barangay}</div>
                       </td>
                     </tr>
                   ))
