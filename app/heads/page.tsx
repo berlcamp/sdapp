@@ -31,7 +31,7 @@ export default async function Home() {
   }
 
   // Board Nemi && Berl
-  if (id === 'user_2ZDEYgFL5Ql1hY9ADm6rutC99Ia' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
+  if (id === 'user_2ZDEYgFL5Ql1hY9ADm6rutC99Ia' || id == 'user_2ZLic0QOVPX0k4rrszC5UXMngy2' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
     barangays.push('Calabayan', 'Carangan', 'Lam-an', 'Liposong', 'Mentering', 'Pantaon', 'Dalapang', '50TH District')
   }
 
