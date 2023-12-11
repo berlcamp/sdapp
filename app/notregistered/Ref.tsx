@@ -39,7 +39,7 @@ export const Ref = ({ memberId, householdId, handleUpdateList }: { memberId: str
   return (
     <div>
       <div className='flex items-center space-x-px'>
-        <span className='text-xs font-bold'>REF-</span>
+        <span className='text-xs font-bold'>R-</span>
         <input
           className='text-xs border border-gray-400 outline-none px-1 py-1 w-10'
           placeholder='ID'
