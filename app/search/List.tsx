@@ -62,7 +62,7 @@ function List() {
 
   return (
     <div>
-      <div className="text-center text-2xl text-gray-300">Not Registered</div>
+      <div className="text-center text-2xl text-gray-300">Search for Name</div>
       <div className="text-gray-300 text-sm mt-6 mb-2">
         <form onSubmit={handleSubmit}>
           <div className="w-full flex justify-between space-x-2">
