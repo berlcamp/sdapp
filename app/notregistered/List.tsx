@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Loading from '@/components/Loading'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+import { Ref } from './Ref'
 
 interface MembersType {
   id: string
@@ -58,33 +59,9 @@ function List({ barangays}: { barangays: string[]}) {
     setInputValues(values)
   }
 
-  const handleSave = async (index: number, id: string, householdId: string) => {
-    // Access the value of the input field associated with the clicked button
-    const voterId = inputValues[index]
-
-    // Perform any desired action with the value
-    let param: any = {
-      voter_id: voterId,
-    }
-
-    console.log(param)
-
-    const params = {
-      id: id,
-      data: param
-    }
-
-    try {
-      await axios.put(`${apiUrl}/households/voterid`, params)
-        .then((response: any) => {
-          setInputValues([])
-
-          const d = data.filter(d => d.household_id !== householdId)
-          setData(d)
-        })
-    } catch (error) {
-      console.error('error', error)
-    }
+  const handleUpdateList = async (householdId: string) => {
+    const d = data.filter(d => d.household_id !== householdId)
+    setData(d)
   }
 
   const handleFilterName = (name: string) => {
@@ -139,7 +116,7 @@ function List({ barangays}: { barangays: string[]}) {
                   }
               </select>
             </div>
-            <div className='flex space-x-1'>
+            {/* <div className='flex space-x-1'>
               <input
                 placeholder='Search Name'
                 className='outline-none text-black px-1 py-px w-32'
@@ -147,7 +124,7 @@ function List({ barangays}: { barangays: string[]}) {
                 value={filterName}
                 type='text'/>
               <button type='button' onClick={e => setFilterName('')} className='bg-gray-600 hover:bg-gray-700 text-xs px-1'>Clear</button>
-            </div>
+            </div> */}
             <div className='flex justify-end flex-1'>
               <button
                 type='button'
@@ -181,17 +158,10 @@ function List({ barangays}: { barangays: string[]}) {
                         }
                         <div className="flex items=center justify-between gap-1">
                           <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename}</div>
-                          <div className='flex items-center space-x-px'>
-                            <span className='text-xs font-bold'>REF-</span>
-                            <input
-                              className='text-xs border border-gray-400 outline-none px-1 py-1 w-10'
-                              placeholder='ID'
-                              onChange={(e) => handleInputChange(index, e.target.value)}
-                              type='text'/>
-                            <button
-                              onClick={() => handleSave(index, member.id, household.household_id)}
-                              className='text-xs bg-emerald-600 hover:bg-emerald-700 active:bg-emerald-500 text-white px-1 py-1 rounded-sm'>Save</button>
-                          </div>
+                          <Ref
+                            handleUpdateList={handleUpdateList}
+                            memberId={member.id}
+                            householdId={household.household_id}/>
                         </div>
                       </React.Fragment>
                     ))
