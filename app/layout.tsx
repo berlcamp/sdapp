@@ -24,7 +24,8 @@ export default function RootLayout({
           <NavBar/>
           <div className='mt-4'>
             <Toaster/>
-            {children}
+            {/* {children} */}
+            <div className='text-center pt-10 text-bold text-gray-300'>Down for maintance, please wait for few minutes - Berl</div>
           </div>
         </body>
       </ClerkProvider>
