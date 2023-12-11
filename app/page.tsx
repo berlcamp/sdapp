@@ -13,7 +13,7 @@ export default async function Home() {
   }
   // Kap Canlas && Berl
   if (id === 'user_2ZD0ywdhBjM9brDROIiJyl4ARg3' || id === 'user_2ZDJpzC640xTT9Ks7hjS5XKaown' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
-    barangays.push('Tabid', 'Manaka', 'Diguan')
+    barangays.push('Tabid', 'Manaka', 'Diguan', 'Litapan', 'Labinay', 'Sinuza')
   }
   // Kons Kat2x && Berl
   if (id === 'user_2ZD3d1Uqtyif7B28biTtCEy5xsw' || id === 'user_2ZF0tBifmDW1jkGm7VPEsP9jxq4' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {

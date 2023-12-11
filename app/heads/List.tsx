@@ -41,6 +41,7 @@ function List({ barangays}: { barangays: string[]}) {
           setData(d)
           setOriginalData(d)
           setFilterName('')
+          setIsChecked(false)
         })
     } catch (error) {
       console.error('error', error)
