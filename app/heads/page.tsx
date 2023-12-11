@@ -17,7 +17,7 @@ export default async function Home() {
   }
   // Kons Kat2x && Berl
   if (id === 'user_2ZD3d1Uqtyif7B28biTtCEy5xsw' || id === 'user_2ZF0tBifmDW1jkGm7VPEsP9jxq4' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
-    barangays.push('50TH District', 'Baybay San Roque', 'Baybay Santa Cruz', 'Aguada')
+    barangays.push('50TH District', 'Carangan', 'Baybay San Roque', 'Baybay Santa Cruz', 'Aguada')
   }
 
   // Kap Ignacio && Berl
