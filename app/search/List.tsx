@@ -104,7 +104,7 @@ function List() {
               {
                 data.map((voter: NamesType, index) => (
                   <tr key={index} className='border-b border-gray-300'>
-                    <td className='text-xs px-1 py-2'>{voter.id}</td>
+                    <td className='text-xs px-1 py-2'>R-{voter.id}</td>
                     <td className='text-xs px-1 py-2'>{voter.fullname}</td>
                     <td className='text-xs px-1 py-2'>
                       {
