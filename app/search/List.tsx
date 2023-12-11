@@ -80,7 +80,7 @@ function List() {
                 <button
                 type='button'
                 onClick={() => setFilterName('')}
-                className='bg-gray-600 hover:bg-gray-700 text-xs text-white font-bold px-2 py-2'>Search</button>
+                className='bg-gray-600 hover:bg-gray-700 text-xs text-white font-bold px-2 py-2'>Clear</button>
             </div>
           </div>
         </form>
