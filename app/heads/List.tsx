@@ -217,7 +217,7 @@ function List({ barangays}: { barangays: string[]}) {
                 {
                   data.map((head: HouseholdHeadType, index) => (
                     <tr key={index} className='border-b border-gray-300'>
-                      <td className='text-xs px-1 py-2'>{head.fullname}</td>
+                      <td className='text-xs px-1 py-2'>{head.fullname} (H-ID: {head.id})</td>
                       <td className='py-2'>
                         <div>
                           <div className='flex items-center space-x-1'>
