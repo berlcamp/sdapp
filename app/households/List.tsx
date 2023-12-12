@@ -109,7 +109,7 @@ function List() {
                     <div className='font-medium'>H-ID: {household.household_id}</div>
                     <div className='font-medium'>MASTERLIST #: {household.masterlist_number}</div>
                   </div>
-                  <div className='font-medium'>{household.has_c ? 'Reason: Has C': (household.all_nr ? 'Reason: All NR':'')}</div>
+                  <div className='font-medium'>{household.has_c ? 'Remarks: Has C': (household.all_nr ? 'Remarks: All NR':'')}</div>
                   <div className='text-center font-bold text-sm'>{household.barangay}</div>
                   {
                     household.members.map((member: MembersType, index) => (
