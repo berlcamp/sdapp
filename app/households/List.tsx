@@ -9,6 +9,7 @@ interface MembersType {
   lastname: string
   firstname: string
   middlename: string
+  category: string
   voter_id: string
 }
 
@@ -16,6 +17,8 @@ interface HouseholdsType {
   household_id: string
   masterlist_number: string
   barangay: string
+  has_c: string
+  all_nr: string
   members: MembersType[]
 }
 
@@ -101,11 +104,12 @@ function List() {
           <div className='flex flex-wrap gap-2 px-4 py-2'>
             {
               data.map((household: HouseholdsType, index) => (
-                <div key={index} className='bg-yellow-200 text-xs text-left space-y-1 px-4 py-2 w-full sm:w-96'>
+                <div key={index} className={`${household.has_c ? 'bg-red-500' : (household.all_nr ? 'bg-gray-500' :'bg-yellow-200')} text-xs text-left space-y-1 px-4 py-2 w-full sm:w-96`}>
                   <div className='flex justify-between'>
                     <div className='font-medium'>H-ID: {household.household_id}</div>
                     <div className='font-medium'>MASTERLIST #: {household.masterlist_number}</div>
                   </div>
+                  <div className='font-medium'>{household.has_c ? 'Reason: Has C': (household.all_nr ? 'Reason: All NR':'')}</div>
                   <div className='text-center font-bold text-sm'>{household.barangay}</div>
                   {
                     household.members.map((member: MembersType, index) => (
@@ -117,7 +121,7 @@ function List() {
                           index === 1 && <div className='font-bold text-sm px-1'>Members</div>
                         }
                         <div className="flex items=center justify-between gap-1">
-                          <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename}</div>
+                          <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename} - ({member.category})</div>
                         </div>
                       </React.Fragment>
                     ))
