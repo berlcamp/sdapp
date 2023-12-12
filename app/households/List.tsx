@@ -19,6 +19,7 @@ interface HouseholdsType {
   barangay: string
   has_c: string
   all_nr: string
+  delete_household: string
   members: MembersType[]
 }
 
@@ -104,12 +105,16 @@ function List() {
           <div className='flex flex-wrap gap-2 px-4 py-2'>
             {
               data.map((household: HouseholdsType, index) => (
-                <div key={index} className={`${household.has_c ? 'bg-red-500' : (household.all_nr ? 'bg-gray-500' :'bg-yellow-200')} text-xs text-left space-y-1 px-4 py-2 w-full sm:w-96`}>
+                <div key={index} className={`${household.has_c || household.delete_household === 'yes' ? 'bg-red-500' : (household.all_nr ? 'bg-gray-500' :'bg-yellow-200')} text-xs text-left space-y-1 px-4 py-2 w-full sm:w-96`}>
                   <div className='flex justify-between'>
                     <div className='font-medium'>H-ID: {household.household_id}</div>
                     <div className='font-medium'>MASTERLIST #: {household.masterlist_number}</div>
                   </div>
-                  <div className='font-medium'>{household.has_c ? 'Remarks: Has C': (household.all_nr ? 'Remarks: All NR':'')}</div>
+                  <div className='font-medium'>
+                    {household.has_c ? 'Remarks: Has C' : ''}
+                    {household.all_nr ? 'Remarks: All NR': ''}
+                    {household.delete_household === 'yes' ? 'Remarks: Removed (Duplicate)': ''}
+                  </div>
                   <div className='text-center font-bold text-sm'>{household.barangay}</div>
                   {
                     household.members.map((member: MembersType, index) => (
