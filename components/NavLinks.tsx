@@ -6,12 +6,12 @@ export const NavLinks = () => {
   const currentRoute = usePathname()
 
   return (
-    <div className="space-x-4">
-      <Link className={`${currentRoute === '/' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`} href='/'>Duplicates</Link>
-      <Link className={`${currentRoute === '/heads' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/heads'>Head&nbsp;SP</Link>
-      <Link className={`${currentRoute === '/notregistered' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/notregistered'>Not&nbsp;Registered</Link>
-      <Link className={`${currentRoute === '/search' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/search'>Search</Link>
-      <Link className={`${currentRoute === '/households' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/households'>Households</Link>
+    <div className="space-x-4 space-y-2">
+      <Link className={`inline-flex ${currentRoute === '/' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`} href='/'>Duplicates</Link>
+      <Link className={`inline-flex ${currentRoute === '/heads' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/heads'>Head&nbsp;SP</Link>
+      <Link className={`inline-flex ${currentRoute === '/notregistered' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/notregistered'>Not&nbsp;Registered</Link>
+      <Link className={`inline-flex ${currentRoute === '/search' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/search'>Search</Link>
+      <Link className={`inline-flex ${currentRoute === '/households' ? 'underline underline-offset-4 font-bold text-gray-200' : 'text-gray-300'}`}  href='/households'>Households</Link>
     </div>
   )
 }

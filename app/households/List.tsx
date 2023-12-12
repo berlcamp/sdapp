@@ -121,7 +121,7 @@ function List() {
                           index === 1 && <div className='font-bold text-sm px-1'>Members</div>
                         }
                         <div className="flex items=center justify-between gap-1">
-                          <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename} - ({member.category})</div>
+                          <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename} {household.has_c ? `(${member.category})` : ''}</div>
                         </div>
                       </React.Fragment>
                     ))
