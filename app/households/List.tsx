@@ -64,9 +64,8 @@ function List() {
     if (filterName === '') {
       setFilterName('')
       setData([])
-    } else {
-      setBoxMessage('Search for Name')
     }
+    setBoxMessage('Search for Name')
   }, [filterName])
 
   return (
