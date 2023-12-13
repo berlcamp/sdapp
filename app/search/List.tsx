@@ -69,7 +69,7 @@ function List() {
             <div className='flex space-x-1'>
               <input
                 placeholder='Search Name'
-                className='outline-none text-black px-1 py-px w-32'
+                className='outline-none text-black px-1 py-px w-48'
                 onChange={e => setFilterName(e.target.value)}
                 value={filterName}
                 type='text'/>

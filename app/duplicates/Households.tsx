@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaArrowsAltH, FaTrashAlt } from "react-icons/fa"
 import { IoIosUndo } from "react-icons/io"
-import Loading from './Loading'
+import Loading from '@/components/Loading'
 import axios from 'axios'
 import toast from 'react-hot-toast'
 

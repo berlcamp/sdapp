@@ -1,5 +1,5 @@
+import Households from "./Households"
 import { currentUser } from '@clerk/nextjs'
-import List from "./List"
 
 export default async function Home() {
   const user = await currentUser()
@@ -17,7 +17,7 @@ export default async function Home() {
   }
   // Kons Kat2x && Berl
   if (id === 'user_2ZD3d1Uqtyif7B28biTtCEy5xsw' || id === 'user_2ZF0tBifmDW1jkGm7VPEsP9jxq4' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
-    barangays.push('50TH District', 'Carangan', 'Baybay San Roque', 'Baybay Santa Cruz', 'Aguada')
+    barangays.push('50TH District', 'Baybay San Roque', 'Baybay Santa Cruz', 'Aguada')
   }
 
   // Kap Ignacio && Berl
@@ -31,7 +31,7 @@ export default async function Home() {
   }
 
   // Board Nemi && Berl
-  if (id === 'user_2ZDEYgFL5Ql1hY9ADm6rutC99Ia' || id == 'user_2ZLic0QOVPX0k4rrszC5UXMngy2' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
+  if (id === 'user_2ZDEYgFL5Ql1hY9ADm6rutC99Ia' || id === 'user_2ZA73AGLyPUkOXHfSWwNODxsMrG') {
     barangays.push('Calabayan', 'Carangan', 'Lam-an', 'Liposong', 'Mentering', 'Pantaon', 'Dalapang', '50TH District')
   }
 
@@ -52,9 +52,32 @@ export default async function Home() {
 
   return (
     <div className="px-4 mx-auto">
-      <div>
-        <div className='text-center pt-10 text-bold text-gray-300'>This function is no longer available, please contact Berl if you have concern.</div>
-        {/* <List barangays={barangays}/> */}
+      <div className='sm:fixed sm:top-32 sm:left-5 mt-2 sm:mt-0 mb-4'>
+        <div className="text-white">Legend:</div>
+        <div className="text-gray-300 text-xs mt-2 flex flex-col items-start gap-3">
+          <div>
+            <div>Active Household</div>
+            <div className="h-8 w-8 bg-yellow-200"></div>
+          </div>
+
+          <div>
+            <div>Deleted Household</div>
+            <div className="h-8 w-8 bg-red-500"></div>
+          </div>
+
+          <div>
+            <div>Deleted Member</div>
+            <div className="h-2 w-16 bg-red-500"></div>
+          </div>
+
+          <div>
+            <div>Possible Duplicate</div>
+            <div className="mt-4 h-px w-16 bg-green-500"></div>
+          </div>
+        </div>
+      </div>
+      <div className="ml-0 sm:ml-32">
+        <Households barangays={barangays}/>
       </div>
     </div>
   )
