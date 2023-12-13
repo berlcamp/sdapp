@@ -20,6 +20,7 @@ interface HouseholdsType {
   has_c: string
   all_nr: string
   sp_id: string
+  sp_fullname: string
   delete_household: string
   members: MembersType[]
 }
@@ -125,6 +126,9 @@ function List() {
                     {household.sp_id === null ? 'Remarks: No SP' : ''}
                     {household.all_nr ? 'Remarks: All NR': ''}
                     {household.delete_household === 'yes' ? 'Remarks: Removed (Duplicate)': ''}
+                  </div>
+                  <div className='font-medium'>
+                    SP: {household.sp_fullname}
                   </div>
                   <div className='text-center font-bold text-sm'>{household.barangay}</div>
                   {
