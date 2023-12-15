@@ -51,7 +51,6 @@ function List() {
           } else {
             setBoxMessage('')
           }
-          console.log(d)
           setData(d)
         })
     } catch (error) {
