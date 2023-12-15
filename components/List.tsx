@@ -2,26 +2,19 @@
 import React, { useEffect, useState } from 'react'
 import Loading from '@/components/Loading'
 import axios from 'axios'
-import toast from 'react-hot-toast'
 
 interface MembersType {
   id: string
   lastname: string
   firstname: string
   middlename: string
-  category: string
-  voter_id: string
 }
 
 interface HouseholdsType {
   household_id: string
   masterlist_number: string
   barangay: string
-  has_c: string
-  all_nr: string
-  sp_id: string
-  sp_fullname: string
-  delete_household: string
+  address: string
   members: MembersType[]
 }
 
@@ -50,7 +43,7 @@ function List() {
         skip: 0
       }
 
-      await axios.get(`${apiUrl}/households`, { params })
+      await axios.get(`${apiUrl}/districthouseholds`, { params })
         .then(response => {
           const d: HouseholdsType[] = response.data
           if (d.length === 0) {
@@ -77,7 +70,7 @@ function List() {
 
   return (
     <div>
-      <div className="text-center text-2xl text-gray-300">Search for Household Member</div>
+      <div className="text-center text-2xl text-gray-300">Search for District 2 Household Member</div>
       <div className="text-gray-300 text-sm mt-6 mb-2">
         <form onSubmit={handleSubmit}>
           <div className="w-full flex justify-between space-x-2">
@@ -108,29 +101,12 @@ function List() {
           <div className='flex flex-wrap gap-2 px-4 py-2'>
             {
               data.map((household: HouseholdsType, index) => (
-                <div key={index} className={
-                  `${household.has_c || household.delete_household === 'yes'
-                    ? 'bg-red-500'
-                    : (household.all_nr
-                        ? 'bg-gray-500'
-                        :(household.sp_id === null
-                          ? 'bg-gray-500'
-                          :'bg-yellow-200'))} text-xs text-left space-y-1 px-4 py-2 w-full sm:w-96`
-                  }>
+                <div key={index} className='bg-yellow-200 text-xs text-left space-y-1 px-4 py-2 w-full sm:w-96'>
                   <div className='flex justify-between'>
                     <div className='font-medium'>H-ID: {household.household_id}</div>
                     <div className='font-medium'>MASTERLIST #: {household.masterlist_number}</div>
                   </div>
-                  <div className='font-medium'>
-                    {household.has_c ? 'Remarks: Has C' : ''}
-                    {household.sp_id === null ? 'Remarks: No SP' : ''}
-                    {household.all_nr ? 'Remarks: All NR': ''}
-                    {household.delete_household === 'yes' ? 'Remarks: Removed (Duplicate)': ''}
-                  </div>
-                  <div className='font-medium'>
-                    SP: {household.sp_fullname}
-                  </div>
-                  <div className='text-center font-bold text-sm'>{household.barangay}</div>
+                  <div className='text-center font-bold text-sm'>{household.barangay}, {household.address}</div>
                   {
                     household.members.map((member: MembersType, index) => (
                       <React.Fragment key={index}>
@@ -141,7 +117,7 @@ function List() {
                           index === 1 && <div className='font-bold text-sm px-1'>Members</div>
                         }
                         <div className="flex items=center justify-between gap-1">
-                          <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename} {household.has_c ? `(${member.category})` : ''}</div>
+                          <div className='text-sm px-1'>{member.lastname}, {member.firstname} {member.middlename}</div>
                         </div>
                       </React.Fragment>
                     ))
