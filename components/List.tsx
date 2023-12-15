@@ -43,7 +43,7 @@ function List() {
         skip: 0
       }
 
-      await axios.get(`${apiUrl}/districthouseholds`, { params })
+      await axios.get(`${apiUrl}/api/districthouseholds`, { params })
         .then(response => {
           const d: HouseholdsType[] = response.data
           if (d.length === 0) {
